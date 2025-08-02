@@ -4,6 +4,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Sidebar } from "@/components/sidebar";
 import { ChatInterface } from "@/components/chat-interface";
 import { MobileMenu } from "@/components/mobile-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Logo } from "@/components/logo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { isUnauthorizedError } from "@/lib/authUtils";
 
@@ -167,8 +169,13 @@ export default function Home() {
             currentView={currentView}
             onViewChange={setCurrentView}
           />
-          <h1 className="text-lg font-semibold text-gray-900 dark:text-white">StudyMind AI</h1>
-          <div className="w-8"></div>
+          <Logo showText={false} />
+          <ThemeToggle />
+        </div>
+
+        {/* Desktop Header with Theme Toggle */}
+        <div className="hidden md:flex bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-3 justify-end">
+          <ThemeToggle />
         </div>
 
         {renderContent()}

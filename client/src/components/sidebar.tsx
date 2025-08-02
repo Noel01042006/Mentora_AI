@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent } from "@/components/ui/card";
 import { useTheme } from "@/components/ui/theme-provider";
 import { useAuth } from "@/hooks/useAuth";
+import { Logo } from "@/components/logo";
 import { Brain, GraduationCap, Heart, Sun, Moon, Settings, Flame, Clock, Trophy, MessageCircle, BookOpen, HelpCircle, BarChart3, Smile, StickyNote } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -38,24 +39,7 @@ export function Sidebar({ currentMode, onModeChange, onPersonalityChange, curren
     <div className="hidden md:flex md:w-80 md:flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-colors duration-300">
       {/* Sidebar Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
-            <Brain className="text-white text-lg" />
-          </div>
-          <div>
-            <h1 className="text-lg font-bold text-gray-900 dark:text-white">StudyMind AI</h1>
-            <p className="text-xs text-gray-500 dark:text-gray-400">AI Learning Companion</p>
-          </div>
-        </div>
-        
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-        >
-          {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-        </Button>
+        <Logo showText={true} />
       </div>
 
       {/* AI Mode Toggle */}
