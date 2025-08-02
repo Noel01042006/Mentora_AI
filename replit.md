@@ -1,8 +1,8 @@
-# StudyMind AI - AI-Powered Learning & Wellbeing Platform
+# Mentora - AI-Powered Learning & Wellbeing Platform
 
 ## Overview
 
-StudyMind AI is a comprehensive web application that combines AI-powered tutoring with mental health and wellbeing support for students. The platform features a dual AI system with two distinct modes: a Study Tutor named "Alex" for educational assistance and a Wellbeing Companion named "Sage" for mental health support. Users can seamlessly switch between these modes while maintaining separate conversation histories and customizable AI personalities.
+Mentora is a comprehensive web application that combines AI-powered tutoring with mental health and wellbeing support for students. The platform features a dual AI system with two distinct modes: a Study Tutor named "Alex" for educational assistance and a Wellbeing Companion named "Sage" for mental health support. Users can seamlessly switch between these modes while maintaining separate conversation histories and customizable AI personalities.
 
 The application provides interactive learning experiences including personalized lessons, dynamic quizzes, mood tracking, progress analytics, and productivity tools like Pomodoro timers. Built as a modern single-page application, it emphasizes accessibility, mobile responsiveness, and real-time communication through WebSocket connections.
 

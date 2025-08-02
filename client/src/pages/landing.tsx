@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Logo } from "@/components/logo";
 import { Brain, GraduationCap, Heart, BookOpen, MessageCircle, Target } from "lucide-react";
 
 export default function Landing() {
@@ -8,12 +9,12 @@ export default function Landing() {
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-2xl mb-8 shadow-lg">
-            <Brain className="w-10 h-10 text-white" />
+          <div className="mb-8">
+            <Logo showText={false} className="scale-150" />
           </div>
           
           <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-            StudyMind AI
+            Mentora
           </h1>
           
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -113,7 +114,7 @@ export default function Landing() {
                 Ready to Transform Your Learning?
               </h2>
               <p className="text-gray-600 dark:text-gray-300 mb-6">
-                Join thousands of students who are already using StudyMind AI to achieve their academic and personal goals.
+                Join thousands of students who are already using Mentora to achieve their academic and personal goals.
               </p>
               <Button 
                 size="lg"
