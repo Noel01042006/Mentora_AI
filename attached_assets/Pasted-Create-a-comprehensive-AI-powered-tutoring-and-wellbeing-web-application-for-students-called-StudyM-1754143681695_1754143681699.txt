@@ -1,0 +1,111 @@
+Create a comprehensive AI-powered tutoring and wellbeing web application for students called "StudyMind AI". This should be a modern, responsive single-page application with the following specifications:
+
+## CORE FEATURES TO IMPLEMENT:
+
+### 1. USER AUTHENTICATION & PERSONALIZATION
+- Google OAuth integration for seamless login
+- User profile creation with avatar selection
+- Allow users to name their AI tutor and wellbeing assistant separately
+- User preferences storage (theme, notification settings, study goals)
+
+### 2. DUAL AI SYSTEM
+- Two distinct AI modes: "Study Tutor" and "Wellbeing Companion"
+- Toggle switch to seamlessly switch between modes
+- Different conversation histories for each mode
+- Customizable AI personalities (Encouraging, Professional, Friendly, Motivational)
+
+### 3. INTELLIGENT TUTORING SYSTEM
+- Topic-based lesson generation with structured content
+- Interactive diagrams and visual explanations using Chart.js or D3.js
+- Step-by-step problem solving with worked examples
+- Subject categorization (Math, Science, English, History, etc.)
+- Difficulty level adaptation based on user performance
+
+### 4. DYNAMIC TESTING & ASSESSMENT
+- AI-generated quizzes and tests on any topic
+- Multiple question types: multiple choice, short answer, true/false
+- Instant feedback with detailed explanations
+- Progress tracking and performance analytics
+- Spaced repetition system for knowledge retention
+
+### 5. WELLBEING & MENTAL HEALTH SUPPORT
+- Mood tracking with daily check-ins
+- Stress management techniques and mindfulness exercises
+- Study-life balance recommendations
+- Motivational quotes and encouragement
+- Crisis detection with professional help resources
+
+### 6. ADVANCED UI/UX FEATURES
+- Dark/Light theme toggle with smooth transitions
+- Mobile-responsive design with touch-friendly interface
+- Real-time typing indicators during AI responses
+- Message reactions and bookmarking system
+- Voice input capability using Web Speech API
+- Accessibility features (screen reader support, keyboard navigation)
+
+### 7. PRODUCTIVITY & STUDY TOOLS
+- Pomodoro timer integration with study sessions
+- Study streak tracking and gamification
+- Note-taking system linked to lessons
+- Calendar integration for study scheduling
+- Progress dashboards with charts and statistics
+
+### 8. ADDITIONAL SMART FEATURES
+- Smart study recommendations based on learning patterns
+- Collaborative study rooms (basic real-time chat)
+- Resource library with curated educational content
+- Export functionality for lessons and notes (PDF generation)
+- Offline mode with cached conversations
+- Push notifications for study reminders
+
+## TECHNICAL REQUIREMENTS:
+
+### Frontend Technology Stack:
+- HTML5, CSS3, JavaScript (ES6+)
+- Framework: React.js or Vue.js for component-based architecture
+- Styling: Tailwind CSS or styled-components for modern UI
+- Icons: Lucide React or Heroicons
+- Charts: Chart.js or Recharts for data visualization
+
+### Backend & APIs:
+- Node.js with Express.js server
+- OpenAI GPT-4 API integration for AI conversations
+- Google OAuth 2.0 for authentication
+- Database: MongoDB or SQLite for user data and conversations
+- Real-time features: Socket.io for live updates
+
+### Design Specifications:
+- Color Palette: 
+  - Primary: Deep blue (#1E40AF) and emerald green (#059669)
+  - Secondary: Warm orange (#F59E0B) for accent elements
+  - Neutral: Clean grays with high contrast ratios
+- Typography: Inter or Poppins font family for readability
+- Layout: Sidebar navigation with main chat area and collapsible panels
+- Animations: Smooth micro-interactions and loading states
+
+### Database Schema:
+```javascript
+Users: {
+  id, email, name, avatar, tutorName, wellbeingName, 
+  preferences, studyStreak, totalStudyTime, createdAt
+}
+
+Messages: {
+  id, userId, content, sender, aiType, timestamp, 
+  reactions, bookmarked
+}
+
+Lessons: {
+  id, userId, topic, subject, content, diagrams, 
+  completed, difficulty, createdAt
+}
+
+Tests: {
+  id, lessonId, userId, questions, userAnswers, 
+  score, completedAt, timeSpent
+}
+
+MoodEntries: {
+  id, userId, mood, notes, timestamp, 
+  stressLevel, energyLevel
+}
