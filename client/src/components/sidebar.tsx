@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useTheme } from "@/components/ui/theme-provider";
 import { useAuth } from "@/hooks/useAuth";
 import { Logo } from "@/components/logo";
-import { Brain, GraduationCap, Heart, Sun, Moon, Settings, Flame, Clock, Trophy, MessageCircle, BookOpen, HelpCircle, BarChart3, Smile, StickyNote } from "lucide-react";
+import { Brain, GraduationCap, Heart, Sun, Moon, Settings, Flame, Clock, Trophy, MessageCircle, BookOpen, HelpCircle, BarChart3, Smile, StickyNote, Timer } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps {
@@ -31,6 +31,7 @@ export function Sidebar({ currentMode, onModeChange, onPersonalityChange, curren
     { id: 'lessons', icon: BookOpen, label: 'Lessons' },
     { id: 'quizzes', icon: HelpCircle, label: 'Quizzes' },
     { id: 'progress', icon: BarChart3, label: 'Progress' },
+    { id: 'pomodoro', icon: Timer, label: 'Pomodoro Timer' },
     { id: 'mood', icon: Smile, label: 'Mood Tracking' },
     { id: 'notes', icon: StickyNote, label: 'Notes' },
   ];

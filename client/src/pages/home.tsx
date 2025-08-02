@@ -6,6 +6,7 @@ import { ChatInterface } from "@/components/chat-interface";
 import { MobileMenu } from "@/components/mobile-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/logo";
+import { PomodoroTimer } from "@/components/pomodoro-timer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { isUnauthorizedError } from "@/lib/authUtils";
 
@@ -107,6 +108,12 @@ export default function Home() {
                 </p>
               </CardContent>
             </Card>
+          </div>
+        );
+      case 'pomodoro':
+        return (
+          <div className="flex-1 p-6">
+            <PomodoroTimer />
           </div>
         );
       case 'mood':
