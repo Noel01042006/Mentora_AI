@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
-import { studyMindAI } from "./openai";
+import { mentoraAI } from "./openai";
 import { insertMessageSchema } from "@shared/schema";
 import { z } from "zod";
 
@@ -64,7 +64,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Generate AI response
       const conversationHistory = await storage.getMessages(userId, messageData.aiType);
-      const aiResponse = await studyMindAI.generateResponse(
+      const aiResponse = await mentoraAI.generateResponse(
         messageData.content,
         messageData.aiType as 'tutor' | 'wellbeing',
         personality,
@@ -110,7 +110,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Topic and subject are required" });
       }
 
-      const lessonContent = await studyMindAI.generateLesson(topic, subject);
+      const lessonContent = await mentoraAI.generateLesson(topic, subject);
       
       const lesson = await storage.createLesson({
         userId,
@@ -137,7 +137,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Topic is required" });
       }
 
-      const quizContent = await studyMindAI.generateQuiz(topic, difficulty);
+      const quizContent = await mentoraAI.generateQuiz(topic, difficulty);
       
       const test = await storage.createTest({
         userId,

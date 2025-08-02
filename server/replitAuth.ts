@@ -1,5 +1,6 @@
 import * as client from "openid-client";
 import { Strategy, type VerifyFunction } from "openid-client/passport";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
 import passport from "passport";
 import session from "express-session";
@@ -56,14 +57,24 @@ function updateUserSession(
 
 async function upsertUser(
   claims: any,
+  provider = 'replit'
 ) {
-  await storage.upsertUser({
+  // Handle different claim formats from different providers
+  const userData = provider === 'google' ? {
+    id: `google_${claims.sub}`,
+    email: claims.email,
+    firstName: claims.given_name,
+    lastName: claims.family_name,
+    profileImageUrl: claims.picture,
+  } : {
     id: claims["sub"],
     email: claims["email"],
     firstName: claims["first_name"],
     lastName: claims["last_name"],
     profileImageUrl: claims["profile_image_url"],
-  });
+  };
+
+  await storage.upsertUser(userData);
 }
 
 export async function setupAuth(app: Express) {
@@ -80,9 +91,47 @@ export async function setupAuth(app: Express) {
   ) => {
     const user = {};
     updateUserSession(user, tokens);
-    await upsertUser(tokens.claims());
+    await upsertUser(tokens.claims(), 'replit');
     verified(null, user);
   };
+
+  // Google OAuth strategy
+  if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+    passport.use(new GoogleStrategy({
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/api/auth/google/callback"
+    }, async (accessToken, refreshToken, profile, done) => {
+      try {
+        const claims = {
+          sub: profile.id,
+          email: profile.emails?.[0]?.value,
+          given_name: profile.name?.givenName,
+          family_name: profile.name?.familyName,
+          picture: profile.photos?.[0]?.value,
+        };
+        
+        await upsertUser(claims, 'google');
+        
+        const user = {
+          claims: {
+            sub: `google_${profile.id}`,
+            email: profile.emails?.[0]?.value,
+            given_name: profile.name?.givenName,
+            family_name: profile.name?.familyName,
+            picture: profile.photos?.[0]?.value,
+          },
+          access_token: accessToken,
+          refresh_token: refreshToken,
+          expires_at: Math.floor(Date.now() / 1000) + 3600, // 1 hour from now
+        };
+        
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
+    }));
+  }
 
   for (const domain of process.env
     .REPLIT_DOMAINS!.split(",")) {
@@ -102,10 +151,18 @@ export async function setupAuth(app: Express) {
   passport.deserializeUser((user: Express.User, cb) => cb(null, user));
 
   app.get("/api/login", (req, res, next) => {
-    passport.authenticate(`replitauth:${req.hostname}`, {
-      prompt: "login consent",
-      scope: ["openid", "email", "profile", "offline_access"],
-    })(req, res, next);
+    const provider = req.query.provider as string;
+    
+    if (provider === 'google' && process.env.GOOGLE_CLIENT_ID) {
+      passport.authenticate('google', {
+        scope: ['profile', 'email']
+      })(req, res, next);
+    } else {
+      passport.authenticate(`replitauth:${req.hostname}`, {
+        prompt: "login consent",
+        scope: ["openid", "email", "profile", "offline_access"],
+      })(req, res, next);
+    }
   });
 
   app.get("/api/callback", (req, res, next) => {
@@ -114,6 +171,16 @@ export async function setupAuth(app: Express) {
       failureRedirect: "/api/login",
     })(req, res, next);
   });
+
+  // Google OAuth routes
+  if (process.env.GOOGLE_CLIENT_ID) {
+    app.get("/api/auth/google/callback", 
+      passport.authenticate('google', { failureRedirect: '/api/login' }),
+      (req, res) => {
+        res.redirect('/');
+      }
+    );
+  }
 
   app.get("/api/logout", (req, res) => {
     req.logout(() => {

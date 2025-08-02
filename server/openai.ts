@@ -148,4 +148,4 @@ export class StudyMindAI {
   }
 }
 
-export const studyMindAI = new StudyMindAI();
+export const mentoraAI = new StudyMindAI();
