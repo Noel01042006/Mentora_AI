@@ -1,0 +1,23 @@
+[build]
+  # Tell Netlify that your files are in the Mentora_AI subdirectory
+  base = "Mentora_AI"
+  
+  # Since this is a static site, no build command needed
+  command = ""
+  
+  # Publish from the current directory (which will be Mentora_AI after setting base)
+  publish = "."
+
+# Optional: Configure redirects if needed
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = ["admin"]}
+
+# Optional: Set headers for better performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
