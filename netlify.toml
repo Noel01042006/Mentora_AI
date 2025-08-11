@@ -1,3 +1,0 @@
-[build]
-  base = "Mentora_AI"
-  publish = "."
